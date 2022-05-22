@@ -90,4 +90,8 @@ public class EmployeeService implements IMaintainable<Employee> {
         storage.deleteItem(scanner.nextInt() - 1);
         System.out.println("Item successfully deleted!");
     }
+
+    public Employee getEmployeeByIndex(int index) {
+        return storage.getItemByIndex(index);
+    }
 }

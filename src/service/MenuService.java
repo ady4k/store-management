@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 /*
 xx locatie - 0
-distribuitori - locatie, pers de cont
+xx distribuitori - locatie, pers de cont
 xx metode de transp - 0
-produse - distribuitor, categorie
+xx produse - distribuitor, categorie
 xx categorie - 0
 comanda - produs, metoda de trasnp
 retur - produs, metoda de transp
-magazin - locatie, angajat
+xx magazin - locatie, angajat
 xx angajat - locatie
 
  */
@@ -22,6 +22,8 @@ public class MenuService {
     private static final EmployeeService employeeService = new EmployeeService();
     private static final HeadquartersService headquartersService = new HeadquartersService();
     private static final DistributorService distributorService = new DistributorService();
+    private static final ProductService productService = new ProductService();
+    private static final ShopService shopService = new ShopService();
     private static int choice;
     private static String itemSelected;
 
@@ -70,6 +72,8 @@ public class MenuService {
                 if (itemSelected == "Employee") employeeChoice(1);
                 if (itemSelected == "Headquarters") headquartersChoice(1);
                 if (itemSelected == "Distributor") distributorChoice(1);
+                if (itemSelected == "Product") productChoice(1);
+                if (itemSelected == "Shop") shopChoice(1);
             }
             case 3 -> {
                 if (itemSelected == "Location") locationChoice(2);
@@ -77,6 +81,8 @@ public class MenuService {
                 if (itemSelected == "Employee") employeeChoice(2);
                 if (itemSelected == "Headquarters") headquartersChoice(2);
                 if (itemSelected == "Distributor") distributorChoice(2);
+                if (itemSelected == "Product") productChoice(2);
+                if (itemSelected == "Shop") shopChoice(2);
             }
             case 4 -> {
                 if (itemSelected == "Location") locationChoice(3);
@@ -84,6 +90,8 @@ public class MenuService {
                 if (itemSelected == "Employee") employeeChoice(3);
                 if (itemSelected == "Headquarters") headquartersChoice(3);
                 if (itemSelected == "Distributor") distributorChoice(3);
+                if (itemSelected == "Product") productChoice(3);
+                if (itemSelected == "Shop") shopChoice(3);
             }
             case 5 -> {
                 if (itemSelected == "Location") locationChoice(4);
@@ -91,6 +99,8 @@ public class MenuService {
                 if (itemSelected == "Employee") employeeChoice(4);
                 if (itemSelected == "Headquarters") headquartersChoice(4);
                 if (itemSelected == "Distributor") distributorChoice(4);
+                if (itemSelected == "Product") productChoice(4);
+                if (itemSelected == "Shop") shopChoice(4);
             }
             default -> System.out.println("Invalid option selected!");
         }
@@ -104,6 +114,8 @@ public class MenuService {
                 3. Employee
                 4. Headquarters
                 5. Distributor
+                6. Product
+                7. Shop
                 """);
         choice = scanner.nextInt();
         switch (choice) {
@@ -112,6 +124,8 @@ public class MenuService {
             case 3 -> itemSelected = "Employee";
             case 4 -> itemSelected = "Headquarters";
             case 5 -> itemSelected = "Distributor";
+            case 6 -> itemSelected = "Product";
+            case 7 -> itemSelected = "Shop";
             default -> System.out.println("Invalid option selected!");
         }
         mainMenu();
@@ -175,6 +189,32 @@ public class MenuService {
             case 2 -> distributorService.showItems();
             case 3 -> distributorService.updateItem();
             case 4 -> distributorService.deleteItem();
+            default -> {
+                System.out.println("Invalid option selected!");
+            }
+        }
+        mainMenu();
+    }
+
+    private void productChoice(int option) {
+        switch (option) {
+            case 1 -> productService.createNewItem(false);
+            case 2 -> productService.showItems();
+            case 3 -> productService.updateItem();
+            case 4 -> productService.deleteItem();
+            default -> {
+                System.out.println("Invalid option selected!");
+            }
+        }
+        mainMenu();
+    }
+
+    private void shopChoice(int option) {
+        switch (option) {
+            case 1 -> shopService.createNewItem(false);
+            case 2 -> shopService.showItems();
+            case 3 -> shopService.updateItem();
+            case 4 -> shopService.deleteItem();
             default -> {
                 System.out.println("Invalid option selected!");
             }

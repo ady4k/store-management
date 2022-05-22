@@ -96,4 +96,8 @@ public class ProductService implements IMaintainable<Product> {
 
         System.out.println("Item successfully deleted!");
     }
+
+    public Product getProductByIndex(int index) {
+        return storage.getItemByIndex(index);
+    }
 }
