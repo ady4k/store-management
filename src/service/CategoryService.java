@@ -62,4 +62,8 @@ public class CategoryService implements IMaintainable<Category> {
 
         System.out.println("Item successfully deleted!");
     }
+
+    public Category getCategoryByIndex(int index) {
+        return storage.getItemByIndex(index);
+    }
 }
