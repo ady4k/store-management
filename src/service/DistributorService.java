@@ -12,6 +12,7 @@ public class DistributorService implements IMaintainable<Distributor> {
     private final static Distributors storage = new Distributors();
     private final static HeadquartersService headquarters = new HeadquartersService();
     private final static Scanner scanner = new Scanner(System.in);
+
     @Override
     public Distributor createNewItem(boolean updating) {
         System.out.print("Distributor name: ");

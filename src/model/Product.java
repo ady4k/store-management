@@ -7,7 +7,8 @@ public class Product {
     private float price;
     private float weight;
 
-    public Product() {}
+    public Product() {
+    }
 
     public Product(String name, Distributor distributor, Category category, float price, float weight) {
         this.name = name;
@@ -46,6 +47,11 @@ public class Product {
     }
 
     public void setPrice(float price) {
+        if (price < 0.01F) {
+            System.out.println("Invalid product price entered!");
+            this.price = 0.01F;
+            return;
+        }
         this.price = price;
     }
 
@@ -54,6 +60,11 @@ public class Product {
     }
 
     public void setWeight(float weight) {
+        if (weight < 0.001F) {
+            System.out.println("Invalid product weight entered!");
+            this.weight = 0.001F;
+            return;
+        }
         this.weight = weight;
     }
 

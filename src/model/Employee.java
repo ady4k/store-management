@@ -20,6 +20,10 @@ public class Employee {
     }
 
     public void setCnp(int cnp) {
+        if (String.valueOf(cnp).length() != 13 || cnp < 0) {
+            System.out.println("Invalid CNP entered");
+            return;
+        }
         this.cnp = cnp;
     }
 
@@ -57,7 +61,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return  "cnp: " + cnp + ", "
+        return "cnp: " + cnp + ", "
                 + "first name: " + firstName + ", " + "last name: " + lastName + ", "
                 + "location: " + location + ", " + "email: " + email;
     }

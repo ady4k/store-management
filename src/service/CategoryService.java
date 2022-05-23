@@ -2,7 +2,6 @@ package service;
 
 import interfaces.IMaintainable;
 import model.Category;
-import model.Location;
 import storage.Categories;
 
 import java.util.ArrayList;
@@ -11,6 +10,7 @@ import java.util.Scanner;
 public class CategoryService implements IMaintainable<Category> {
     private final static Categories storage = new Categories();
     private final static Scanner scanner = new Scanner(System.in);
+
     @Override
     public Category createNewItem(boolean updating) {
         System.out.print("Category name: ");

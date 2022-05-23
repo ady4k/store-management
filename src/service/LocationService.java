@@ -3,12 +3,14 @@ package service;
 import interfaces.IMaintainable;
 import model.Location;
 import storage.Locations;
+import storage.predefined.Continents;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class LocationService implements IMaintainable<Location> {
-
+    private static final List<List<String>> continents = Continents.getContinents();
     private static final Locations storage = new Locations();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -24,11 +26,10 @@ public class LocationService implements IMaintainable<Location> {
 
     @Override
     public Location createNewItem(boolean updating) {
+        String country = continentSelection();
+
         System.out.print("City:");
         String city = scanner.next();
-
-        System.out.print("Country:");
-        String country = scanner.next();
 
         Location toAdd = new Location(city, country);
         if (updating) {
@@ -65,8 +66,7 @@ public class LocationService implements IMaintainable<Location> {
                 location.setCity(city);
             }
             case 2 -> {
-                System.out.println("New country:");
-                String country = scanner.next();
+                String country = continentSelection();
                 location.setCountry(country);
             }
             case 3 -> location = createNewItem(true);
@@ -84,6 +84,22 @@ public class LocationService implements IMaintainable<Location> {
         System.out.println("Item successfully deleted!");
     }
 
+    public String continentSelection() {
+        System.out.println("Select a continent:");
+        System.out.println("1 asia / 2 africa / 3 north america / 4 south america / 5 europe / 6 australia");
+        List<String> continentSelected = continents.get(scanner.nextInt() - 1);
+
+        for (int i = 0; i < continentSelected.size(); i++) {
+            System.out.print((i + 1) + ":" + continentSelected.get(i) + " / ");
+            if (i % 10 == 0 && i > 0) {
+                System.out.println();
+            }
+        }
+        System.out.println();
+
+        System.out.println("Select a country from the upper list:");
+        return continentSelected.get(scanner.nextInt() - 1);
+    }
 
 
 }

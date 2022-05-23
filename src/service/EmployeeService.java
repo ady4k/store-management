@@ -12,6 +12,7 @@ public class EmployeeService implements IMaintainable<Employee> {
     private final static Employees storage = new Employees();
     private final static LocationService locationService = new LocationService();
     private final static Scanner scanner = new Scanner(System.in);
+
     @Override
     public Employee createNewItem(boolean updating) {
         System.out.print("CNP:");

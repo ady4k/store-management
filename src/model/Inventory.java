@@ -22,6 +22,11 @@ public class Inventory {
     }
 
     public void setTotalCapacity(float totalCapacity) {
+        if (totalCapacity < 0 || totalCapacity - this.remainingCapacity < 0) {
+            System.out.println("Invalid Total Capacity entered!\nTotal Capacity cannot be lower than 0 or the occupied capacity in the inventory.");
+            return;
+        }
+        setRemainingCapacity(totalCapacity - this.totalCapacity + getRemainingCapacity());
         this.totalCapacity = totalCapacity;
     }
 
@@ -38,7 +43,28 @@ public class Inventory {
     }
 
     public void setProducts(Map<Product, Integer> products) {
+        float capacityOccupied = 0;
+        for (Product key : products.keySet()) {
+            capacityOccupied = capacityOccupied + key.getWeight() * products.get(key);
+        }
+        if (capacityOccupied > totalCapacity) {
+            System.out.println("Cannot add this product list to the selected inventory because it's weight is higher than the current inventory's capacity.");
+            return;
+        }
         this.products = products;
+    }
+
+    public boolean modifyCapacity(float capacity, boolean adding) {
+        if (capacity > this.remainingCapacity && adding) {
+            System.out.println("Remaining capacity is too low to fit the item selected!");
+            return false;
+        }
+        if (adding) {
+            setRemainingCapacity(this.remainingCapacity - capacity);
+        } else {
+            setRemainingCapacity(this.remainingCapacity + capacity);
+        }
+        return true;
     }
 
     @Override

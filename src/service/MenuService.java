@@ -12,8 +12,7 @@ comanda - produs, metoda de trasnp
 retur - produs, metoda de transp
 xx magazin - locatie, angajat
 xx angajat - locatie
-
- */
+*/
 
 public class MenuService {
     private static final Scanner scanner = new Scanner(System.in);

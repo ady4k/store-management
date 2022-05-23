@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Categories implements IStorable<Category> {
     private static final ArrayList<Category> categories = new ArrayList<Category>();
+
     @Override
     public void addNewItem(Category item) {
         categories.add(item);

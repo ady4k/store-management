@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Locations implements IStorable<Location> {
     private static final ArrayList<Location> locations = new ArrayList<Location>();
+
     @Override
     public void addNewItem(Location item) {
         locations.add(item);

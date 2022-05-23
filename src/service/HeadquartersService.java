@@ -8,15 +8,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HeadquartersService implements IMaintainable<Headquarters> {
+    private final static LocationService locationService = new LocationService();
     private final static HeadquartersStorage storage = new HeadquartersStorage();
     private final static Scanner scanner = new Scanner(System.in);
+
     @Override
     public Headquarters createNewItem(boolean updating) {
+        String country = locationService.continentSelection();
+
         System.out.print("City:");
         String city = scanner.next();
-
-        System.out.print("Country:");
-        String country = scanner.next();
 
         System.out.print("Postal code:");
         int postalCode = scanner.nextInt();

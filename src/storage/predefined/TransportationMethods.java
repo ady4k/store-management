@@ -7,6 +7,11 @@ public final class TransportationMethods {
     private TransportationMethods() {
         throw new UnsupportedOperationException();
     }
+
+    public static Map<String, Float> getTransports() {
+        return transports;
+    }
+
     private final static Map<String, Float> transports = new HashMap<String, Float>() {
         static {
             transports.put("road", 1.35F);
@@ -16,7 +21,5 @@ public final class TransportationMethods {
         }
     };
 
-    public static Map<String, Float> getTransports() {
-        return transports;
-    }
+
 }

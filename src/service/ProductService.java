@@ -15,6 +15,7 @@ public class ProductService implements IMaintainable<Product> {
     private final static Products storage = new Products();
 
     private final static Scanner scanner = new Scanner(System.in);
+
     @Override
     public Product createNewItem(boolean updating) {
         System.out.print("Product name: ");

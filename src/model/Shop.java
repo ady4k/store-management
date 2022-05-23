@@ -53,6 +53,11 @@ public class Shop {
     }
 
     public void setMoney(float money) {
+        if (money < 0.01F) {
+            System.out.println("Invalid capital amount entered!");
+            this.money = 0.01F;
+            return;
+        }
         this.money = money;
     }
 
@@ -62,6 +67,10 @@ public class Shop {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public boolean checkIfEmployeeExists(Employee employee) {
+        return this.employees.contains(employee);
     }
 
     @Override

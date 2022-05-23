@@ -17,25 +17,41 @@ public class InventoryService implements IMaintainable<Inventory>, ICountable<Ma
 
     @Override
     public void addItemToCountable() {
+        System.out.println("Select the inventory you want to add an item to:");
+        showItems();
+        int index = scanner.nextInt() - 1;
+        Inventory inventory = storage.getItemByIndex(index);
+        Map<Product, Integer> countable = getCountable(index);
+
         System.out.println("Select an item from the following list:");
         productService.showItems();
         Product product = productService.getProductByIndex(scanner.nextInt() - 1);
         System.out.println("Product quantity (units):");
         int quantity = scanner.nextInt();
 
-        Map<Product, Integer> countable = getCountable();
-
-        countable.put(product, quantity);
-        System.out.println("Product - quantity successfully added to the list");
+        if (inventory.modifyCapacity(product.getWeight() * quantity, true)) {
+            countable.put(product, quantity);
+            System.out.println("Product - quantity successfully added to the list");
+        }
     }
 
     @Override
     public void removeItemFromCountable() {
-        Map<Product, Integer> countable = getCountable();
+        System.out.println("Select the inventory you want to remove an item from:");
+        showItems();
+        int index = scanner.nextInt() - 1;
+        Inventory inventory = storage.getItemByIndex(index);
+        Map<Product, Integer> countable = getCountable(index);
+
         System.out.println("Choose an item from the following list:");
         showCountableItems(countable);
+
         ArrayList<Product> keyList = new ArrayList<Product>(countable.keySet());
-        Product toRemove = keyList.get(scanner.nextInt() - 1);
+        index = scanner.nextInt() - 1;
+        Product toRemove = keyList.get(index);
+        int quantity = countable.get(toRemove);
+
+        inventory.modifyCapacity(toRemove.getWeight() * quantity, false);
 
         countable.remove(toRemove);
         System.out.println("Item successfully removed from the list.");
@@ -56,10 +72,8 @@ public class InventoryService implements IMaintainable<Inventory>, ICountable<Ma
     }
 
     @Override
-    public Map<Product, Integer> getCountable() {
-        System.out.println("Choose an item from the following list:");
-        showItems();
-        return storage.getItemByIndex(scanner.nextInt() - 1).getProducts();
+    public Map<Product, Integer> getCountable(int index) {
+        return storage.getItemByIndex(index).getProducts();
     }
 
     @Override

@@ -2,7 +2,10 @@ package service;
 
 import interfaces.ICountable;
 import interfaces.IMaintainable;
-import model.*;
+import model.Employee;
+import model.Inventory;
+import model.Location;
+import model.Shop;
 import storage.Shops;
 
 import java.util.ArrayList;
@@ -11,26 +14,38 @@ import java.util.Scanner;
 public class ShopService implements IMaintainable<Shop>, ICountable<ArrayList<Employee>> {
     private final static Shops storage = new Shops();
     private final static LocationService locationService = new LocationService();
-    private final static InventoryService inventoryService = new InventoryService();
     private final static EmployeeService employeeService = new EmployeeService();
     private final static Scanner scanner = new Scanner(System.in);
 
     @Override
     public void addItemToCountable() {
-        System.out.println("Select an item from the following list:");
+        System.out.println("Select the shop you want to add an employee to:");
+        showItems();
+        int index = scanner.nextInt() - 1;
+
+        Shop shop = storage.getItemByIndex(index);
+        ArrayList<Employee> countable = getCountable(index);
+
+        System.out.println("Select an employee from the following list:");
         employeeService.showItems();
         Employee employee = employeeService.getEmployeeByIndex(scanner.nextInt() - 1);
 
-        ArrayList<Employee> countable = getCountable();
+        if (shop.checkIfEmployeeExists(employee)) {
+            System.out.println("Employee is already asigned to this shop!");
+        } else {
+            countable.add(employee);
+        }
 
-        countable.add(employee);
         System.out.println("Employee successfully added to the list");
     }
 
     @Override
     public void removeItemFromCountable() {
-        ArrayList<Employee> countable = getCountable();
-        System.out.println("Choose an item from the following list:");
+        System.out.println("Select the shop you want to remove an employee from:");
+        showItems();
+        ArrayList<Employee> countable = getCountable(scanner.nextInt() - 1);
+
+        System.out.println("Select an employee from the following list:");
         showCountableItems(countable);
 
         countable.remove(scanner.nextInt() - 1);
@@ -52,10 +67,8 @@ public class ShopService implements IMaintainable<Shop>, ICountable<ArrayList<Em
     }
 
     @Override
-    public ArrayList<Employee> getCountable() {
-        System.out.println("Choose an item from the following list:");
-        showItems();
-        return storage.getItemByIndex(scanner.nextInt() - 1).getEmployees();
+    public ArrayList<Employee> getCountable(int index) {
+        return storage.getItemByIndex(index).getEmployees();
     }
 
     @Override
@@ -66,11 +79,10 @@ public class ShopService implements IMaintainable<Shop>, ICountable<ArrayList<Em
         System.out.print("Initial capital in $: ");
         float money = scanner.nextInt();
 
+        String country = locationService.continentSelection();
+
         System.out.print("Location - city:");
         String city = scanner.next();
-
-        System.out.print("Location - country:");
-        String country = scanner.next();
         Location location = locationService.searchForLocation(new Location(city, country));
 
         System.out.print("Total capacity for the shop's inventory in kg:");
@@ -118,11 +130,10 @@ public class ShopService implements IMaintainable<Shop>, ICountable<ArrayList<Em
                 shop.setMoney(money);
             }
             case 3 -> {
+                String country = locationService.continentSelection();
+
                 System.out.println("New city:");
                 String city = scanner.next();
-
-                System.out.print("New country:");
-                String country = scanner.next();
                 Location location = locationService.searchForLocation(new Location(city, country));
 
                 shop.setLocation(location);

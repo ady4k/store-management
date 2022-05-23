@@ -1,6 +1,6 @@
 package model;
 
-public class Headquarters extends Location{
+public class Headquarters extends Location {
     private int postalCode;
     private String street;
     private int streetNumber;
@@ -9,6 +9,7 @@ public class Headquarters extends Location{
     public Headquarters() {
         super();
     }
+
     public Headquarters(String city, String country, int postalCode, String street, int streetNumber, int phoneNumber) {
         super(city, country);
         this.postalCode = postalCode;
@@ -22,6 +23,11 @@ public class Headquarters extends Location{
     }
 
     public void setPostalCode(int postalCode) {
+        if (String.valueOf(postalCode).length() != 6) {
+            System.out.println("Invalid Postal Code entered!");
+            this.postalCode = -1;
+            return;
+        }
         this.postalCode = postalCode;
     }
 
@@ -38,6 +44,11 @@ public class Headquarters extends Location{
     }
 
     public void setStreetNumber(int streetNumber) {
+        if (streetNumber < 0) {
+            System.out.println("Invalid Street Number entered!");
+            this.streetNumber = -1;
+            return;
+        }
         this.streetNumber = streetNumber;
     }
 
@@ -46,6 +57,11 @@ public class Headquarters extends Location{
     }
 
     public void setPhoneNumber(int phoneNumber) {
+        if (String.valueOf(phoneNumber).length() != 10 || phoneNumber < 0) {
+            System.out.println("Invalid Phone Number entered!");
+            this.phoneNumber = -1;
+            return;
+        }
         this.phoneNumber = phoneNumber;
     }
 

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Employees implements IStorable<Employee> {
     private final static ArrayList<Employee> employees = new ArrayList<Employee>();
+
     @Override
     public void addNewItem(Employee item) {
         employees.add(item);
