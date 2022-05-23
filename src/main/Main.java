@@ -1,6 +1,6 @@
 package main;
 
-import service.MenuService;
+import service.interactive.MenuService;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,7 @@
-package service;
+package service.interactive;
+
+import model.Shop;
+import service.models.*;
 
 import java.util.Scanner;
 
@@ -8,7 +11,7 @@ xx distribuitori - locatie, pers de cont
 xx metode de transp - 0
 xx produse - distribuitor, categorie
 xx categorie - 0
-comanda - produs, metoda de trasnp
+xx comanda - produs, metoda de trasnp
 retur - produs, metoda de transp
 xx magazin - locatie, angajat
 xx angajat - locatie
@@ -25,6 +28,8 @@ public class MenuService {
     private static final ShopService shopService = new ShopService();
     private static int choice;
     private static String itemSelected;
+    private static Shop shopSelected;
+    private static int orderSelected = -1;
 
     public void begin() {
         mainMenu();
@@ -35,17 +40,33 @@ public class MenuService {
         System.out.print("Item selected: ");
         if (itemSelected == null) {
             System.out.println("(none)");
+            shopMenu();
             System.out.println("1. Select an item");
         } else {
             System.out.println(itemSelected);
+            shopMenu();
             crudMenu();
+        }
+
+        if (shopSelected != null) {
+            System.out.println("6. Administrate shop");
         }
 
         //exitMenu();
         choice = scanner.nextInt();
-        if (choice != 0)
+        if (choice != 9)
             middlemanChoice(choice);
 
+    }
+
+    private void shopMenu() {
+        System.out.print("Shop selected: ");
+        if (shopSelected == null) {
+            System.out.println("(none)");
+            System.out.println("0. Select a shop");
+        } else {
+            System.out.println(shopSelected.getName() + " " + "money: " + shopSelected.getMoney());
+        }
     }
 
     private void crudMenu() {
@@ -58,51 +79,104 @@ public class MenuService {
                 """);
     }
 
+    private void shopAdministrationMenu() {
+        System.out.println("""
+                1. Check shop inventory
+                2. Show shop details
+                3. Check all orders placed
+                4. Orders administration
+                5. Employees administration
+                6. Check all returnals placed
+                7. Returnals administrations
+                8. Return to last menu
+                """);
+        shopAdministrationChoice(scanner.nextInt());
+    }
+
+    private void shopAdministrationChoice(int option) {
+        switch (option) {
+            case 1 -> System.out.println(shopSelected.getInventory());
+            case 2 -> System.out.println(shopSelected);
+            case 3 -> shopService.showOrders(shopSelected);
+            case 4 -> orderAdministrationMenu();
+            case 5 -> employeesAdministrationMenu();
+            //case 6 -> shopService.showReturnals(shopSelected);
+            //case 7 -> returnalsAdministrationMenu();
+            case 8 -> mainMenu();
+            case default -> System.out.println("Invalid option selected!");
+        }
+    }
+
+    private void orderAdministrationMenu() {
+        System.out.print("Current order: ");
+
+        if (orderSelected == -1) {
+            System.out.println("(none)");
+        } else {
+            System.out.println(orderSelected);
+        }
+        System.out.println("""
+                1. Select an order
+                2. Place a new order
+                """);
+        if (orderSelected != -1) {
+            System.out.println("3. Modify selected order");
+        }
+        System.out.println("4. Return to last menu");
+        orderAdministrationChoice(scanner.nextInt());
+    }
+
+    private void orderAdministrationChoice(int option) {
+        switch (option) {
+            case 1 -> orderSelected = shopService.selectOrder(shopSelected);
+            case 2 -> shopService.createOrder(shopSelected);
+            case 3 ->
+                    shopService.modifyOrder(shopSelected, shopService.getOrderByIndex(shopSelected, orderSelected - 1));
+            case 4 -> shopAdministrationMenu();
+            case default -> System.out.println("Invalid option selected");
+        }
+    }
+
+    private void employeesAdministrationMenu() {
+        System.out.println("""
+                1. Show all employees
+                2. Assign an employee to selected shop
+                3. Remove an employee from selected shop
+                4. Return to last menu
+                """);
+        employeesAdministrationChoice(scanner.nextInt());
+    }
+
+    private void employeesAdministrationChoice(int option) {
+        switch (option) {
+            case 1 -> shopService.showCountableItems(shopService.getCountableByShop(shopSelected));
+            case 2 -> shopService.assignEmployeeToShop(shopSelected);
+            case 3 -> shopService.removeEmployeeFromShop(shopSelected);
+            case 4 -> shopAdministrationMenu();
+            case default -> System.out.println("Invalid option selected");
+        }
+    }
+
     private void exitMenu() {
         System.out.println("0. Return");
     }
 
     private void middlemanChoice(int option) {
         switch (option) {
+            case 0 -> shopSelected = shopService.chooseShop();
             case 1 -> itemsChoice();
-            case 2 -> {
-                if (itemSelected == "Location") locationChoice(1);
-                if (itemSelected == "Category") categoryChoice(1);
-                if (itemSelected == "Employee") employeeChoice(1);
-                if (itemSelected == "Headquarters") headquartersChoice(1);
-                if (itemSelected == "Distributor") distributorChoice(1);
-                if (itemSelected == "Product") productChoice(1);
-                if (itemSelected == "Shop") shopChoice(1);
-            }
-            case 3 -> {
-                if (itemSelected == "Location") locationChoice(2);
-                if (itemSelected == "Category") categoryChoice(2);
-                if (itemSelected == "Employee") employeeChoice(2);
-                if (itemSelected == "Headquarters") headquartersChoice(2);
-                if (itemSelected == "Distributor") distributorChoice(2);
-                if (itemSelected == "Product") productChoice(2);
-                if (itemSelected == "Shop") shopChoice(2);
-            }
-            case 4 -> {
-                if (itemSelected == "Location") locationChoice(3);
-                if (itemSelected == "Category") categoryChoice(3);
-                if (itemSelected == "Employee") employeeChoice(3);
-                if (itemSelected == "Headquarters") headquartersChoice(3);
-                if (itemSelected == "Distributor") distributorChoice(3);
-                if (itemSelected == "Product") productChoice(3);
-                if (itemSelected == "Shop") shopChoice(3);
-            }
-            case 5 -> {
-                if (itemSelected == "Location") locationChoice(4);
-                if (itemSelected == "Category") categoryChoice(4);
-                if (itemSelected == "Employee") employeeChoice(4);
-                if (itemSelected == "Headquarters") headquartersChoice(4);
-                if (itemSelected == "Distributor") distributorChoice(4);
-                if (itemSelected == "Product") productChoice(4);
-                if (itemSelected == "Shop") shopChoice(4);
+            case 2, 3, 4, 5 -> {
+                if (itemSelected == "Location") locationChoice(option - 1);
+                if (itemSelected == "Category") categoryChoice(option - 1);
+                if (itemSelected == "Employee") employeeChoice(option - 1);
+                if (itemSelected == "Headquarters") headquartersChoice(option - 1);
+                if (itemSelected == "Distributor") distributorChoice(option - 1);
+                if (itemSelected == "Product") productChoice(option - 1);
+                if (itemSelected == "Shop") shopChoice(option - 1);
             }
             default -> System.out.println("Invalid option selected!");
         }
+        mainMenu();
     }
 
 

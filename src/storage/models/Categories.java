@@ -1,4 +1,4 @@
-package storage;
+package storage.models;
 
 import interfaces.IStorable;
 import model.Category;

@@ -1,10 +1,10 @@
-package service;
+package service.models;
 
 import interfaces.IMaintainable;
 import model.Category;
 import model.Distributor;
 import model.Product;
-import storage.Products;
+import storage.models.Products;
 
 import java.util.ArrayList;
 import java.util.Scanner;

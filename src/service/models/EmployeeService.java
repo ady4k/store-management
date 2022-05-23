@@ -1,9 +1,9 @@
-package service;
+package service.models;
 
 import interfaces.IMaintainable;
 import model.Employee;
 import model.Location;
-import storage.Employees;
+import storage.models.Employees;
 
 import java.util.ArrayList;
 import java.util.Scanner;

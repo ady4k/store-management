@@ -1,10 +1,10 @@
-package service;
+package service.models;
 
 import interfaces.ICountable;
 import interfaces.IMaintainable;
 import model.Inventory;
 import model.Product;
-import storage.InventoryStorage;
+import storage.models.InventoryStorage;
 
 import java.util.ArrayList;
 import java.util.Map;

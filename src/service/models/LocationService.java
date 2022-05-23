@@ -1,8 +1,8 @@
-package service;
+package service.models;
 
 import interfaces.IMaintainable;
 import model.Location;
-import storage.Locations;
+import storage.models.Locations;
 import storage.predefined.Continents;
 
 import java.util.ArrayList;

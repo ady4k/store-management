@@ -1,8 +1,8 @@
-package service;
+package service.models;
 
 import interfaces.IMaintainable;
 import model.Category;
-import storage.Categories;
+import storage.models.Categories;
 
 import java.util.ArrayList;
 import java.util.Scanner;

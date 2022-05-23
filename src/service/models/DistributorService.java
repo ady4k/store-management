@@ -1,9 +1,9 @@
-package service;
+package service.models;
 
 import interfaces.IMaintainable;
 import model.Distributor;
 import model.Headquarters;
-import storage.Distributors;
+import storage.models.Distributors;
 
 import java.util.ArrayList;
 import java.util.Scanner;

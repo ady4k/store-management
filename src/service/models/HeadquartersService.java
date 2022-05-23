@@ -1,8 +1,8 @@
-package service;
+package service.models;
 
 import interfaces.IMaintainable;
 import model.Headquarters;
-import storage.HeadquartersStorage;
+import storage.models.HeadquartersStorage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
