@@ -1,6 +1,37 @@
 package model;
 
+import interfaces.csv.ICsvTypeFactory;
+
 public class Headquarters extends Location {
+    public final static ICsvTypeFactory<Headquarters> FACTORY = new ICsvTypeFactory<Headquarters>() {
+        @Override
+        public String[] getColumnNames() {
+            return new String[]{"postalCode", "street", "streetNumber", "phoneNumber"};
+        }
+
+        @Override
+        public String[] toStringArray(Headquarters item) {
+            return new String[]{
+                    item.getCity(),
+                    item.getCountry(),
+                    Integer.toString(item.postalCode),
+                    item.street,
+                    Integer.toString(item.streetNumber),
+                    Integer.toString(item.phoneNumber)
+            };
+        }
+
+        @Override
+        public Headquarters fromStringArray(String[] item) {
+            String city = item[0];
+            String country = item[1];
+            int postalCode = Integer.parseInt(item[2]);
+            String street = item[3];
+            int streetNumber = Integer.parseInt(item[4]);
+            int phoneNumber = Integer.parseInt(item[5]);
+            return new Headquarters(city, country, postalCode, street, streetNumber, phoneNumber);
+        }
+    };
     private int postalCode;
     private String street;
     private int streetNumber;

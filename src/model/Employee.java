@@ -1,6 +1,38 @@
 package model;
 
+import interfaces.csv.ICsvTypeFactory;
+
+import java.util.Arrays;
+
 public class Employee {
+    public final static ICsvTypeFactory<Employee> FACTORY = new ICsvTypeFactory<Employee>() {
+        @Override
+        public String[] getColumnNames() {
+            return new String[]{"cnp", "firstName", "lastName", "location", "email"};
+        }
+
+        @Override
+        public String[] toStringArray(Employee item) {
+            return new String[]{
+                    Integer.toString(item.cnp),
+                    item.firstName,
+                    item.lastName,
+                    item.location.getCity(),
+                    item.location.getCountry(),
+                    item.email
+            };
+        }
+
+        @Override
+        public Employee fromStringArray(String[] item) {
+            int cnp = Integer.parseInt(item[0]);
+            String firstName = item[1];
+            String lastName = item[2];
+            Location location = Location.FACTORY.fromStringArray(Arrays.copyOfRange(item, 3, 4));
+            String email = item[5];
+            return new Employee(cnp, firstName, lastName, location, email);
+        }
+    };
     private int cnp;
     private String firstName;
     private String lastName;

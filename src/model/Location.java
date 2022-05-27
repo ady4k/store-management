@@ -1,7 +1,30 @@
 package model;
 
 
+import interfaces.csv.ICsvTypeFactory;
+
 public class Location {
+    public final static ICsvTypeFactory<Location> FACTORY = new ICsvTypeFactory<Location>() {
+        @Override
+        public String[] getColumnNames() {
+            return new String[]{"city", "country"};
+        }
+
+        @Override
+        public String[] toStringArray(Location item) {
+            return new String[]{
+                    item.city,
+                    item.country
+            };
+        }
+
+        @Override
+        public Location fromStringArray(String[] item) {
+            String city = item[0];
+            String country = item[1];
+            return new Location(city, country);
+        }
+    };
     private String city;
     private String country;
 

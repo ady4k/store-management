@@ -1,13 +1,26 @@
 package storage.models;
 
+import helper.LogAuditHelper;
 import interfaces.IStorable;
 import model.Employee;
+import persistence.CsvDatabase;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Employees implements IStorable<Employee> {
+    private final static CsvDatabase csvDatabase = new CsvDatabase();
+    private final static LogAuditHelper database;
     // all employee entities are kept in an Arraylist
-    private final static ArrayList<Employee> employees = new ArrayList<Employee>();
+    private static ArrayList<Employee> employees = new ArrayList<Employee>();
+
+    static {
+        try {
+            database = new LogAuditHelper(csvDatabase, "database/audit.csv");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // CRUD methods
     @Override
@@ -33,5 +46,13 @@ public class Employees implements IStorable<Employee> {
     @Override
     public void deleteItem(int index) {
         employees.remove(index);
+    }
+
+    public void importFromCsv() throws IOException {
+        employees = database.getEmployees();
+    }
+
+    public void exportToCsv() throws IOException {
+        database.exportEmployees(employees);
     }
 }

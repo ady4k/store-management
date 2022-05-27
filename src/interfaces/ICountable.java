@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface ICountable<C> {
+public interface ICountable<T> {
     // implementation for entities that have a collection variable, for example the employee list in the shop entity
     // adding and removing methods for countable are very general and will probably not be used as often (if at all)
     // basically one encapsulation level up from the storable form
@@ -9,9 +9,9 @@ public interface ICountable<C> {
 
     void removeItemFromCountable();
 
-    void setCountable(C countable);
+    void setCountable(T countable);
 
-    void showCountableItems(C countable);
+    void showCountableItems(T countable);
 
-    C getCountable(int index);
+    T getCountable(int index);
 }

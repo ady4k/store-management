@@ -1,13 +1,27 @@
 package storage.models;
 
+import helper.LogAuditHelper;
 import interfaces.IStorable;
 import model.Category;
+import persistence.CsvDatabase;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Categories implements IStorable<Category> {
+
+    private final static CsvDatabase csvDatabase = new CsvDatabase();
+    private final static LogAuditHelper database;
     // all the different types of category entities will be kept in an ArrayList
-    private static final ArrayList<Category> categories = new ArrayList<Category>();
+    private static ArrayList<Category> categories = new ArrayList<Category>();
+
+    static {
+        try {
+            database = new LogAuditHelper(csvDatabase, "database/audit.csv");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // CRUD methods
     @Override
@@ -33,5 +47,13 @@ public class Categories implements IStorable<Category> {
     @Override
     public void deleteItem(int index) {
         categories.remove(index);
+    }
+
+    public void importFromCsv() throws IOException {
+        categories = database.getCategories();
+    }
+
+    public void exportToCsv() throws IOException {
+        database.exportCategories(categories);
     }
 }
