@@ -7,6 +7,7 @@ public class Product {
     private float price;
     private float weight;
 
+    // constructors
     public Product() {
     }
 
@@ -18,6 +19,7 @@ public class Product {
         this.weight = weight;
     }
 
+    // getters and setters
     public String getName() {
         return name;
     }
@@ -47,8 +49,10 @@ public class Product {
     }
 
     public void setPrice(float price) {
+        // price will have a minimum, products cannot be free or lower than 0.01$
         if (price < 0.01F) {
             System.out.println("Invalid product price entered!");
+            // default value
             this.price = 0.01F;
             return;
         }
@@ -60,14 +64,17 @@ public class Product {
     }
 
     public void setWeight(float weight) {
+        // weight will have a minimum, products cannot weight nothing or lower than 1 gram
         if (weight < 0.001F) {
             System.out.println("Invalid product weight entered!");
+            // default value
             this.weight = 0.001F;
             return;
         }
         this.weight = weight;
     }
 
+    // class methods
     @Override
     public String toString() {
         return "name: " + name + ", distributor details: " + distributor + ", category: " + category

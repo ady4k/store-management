@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class Continents {
-
+    // pointless to keep inside a class, but here are kept all the countries and the continents inside of Lists (except Antarctica and a couple of countries)
     private final static List<String> asia = Arrays.asList("asia", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", "Bhutan", "Brunei", "Cambodia", "China", "Cyprus", "Georgia", "India", "Indonesia",
             "Iran", "Iraq", "Israel", "Japan", "Jordan", "Kazakhstan", "Kuwait", "Kyrgyzstan", "Laos", "Lebanon", "Malaysia", "Maldives", "Mongolia", "Myanmar", "Nepal", "North Korea", "Oman",
             "Pakistan", "Palestine", "Philippines", "Qatar", "Russia", "Saudi Arabia", "Singapore", "South Korea", "Sri Lanka", "Syria", "Taiwan", "Tajikistan", "Thailand", "Timor Leste", "Turkey",
@@ -26,10 +26,12 @@ public final class Continents {
             "Paulau", "Papua New Guinea", "Samoa", "Solomon Islands", "Tonga", "Tuvala", "Vanuata");
     private final static List<List<String>> continents = Arrays.asList(asia, africa, northAmerica, southAmerica, europe, australia);
 
+    // constructor private as there is no point to instantiate the class
     private Continents() {
         throw new UnsupportedOperationException();
     }
 
+    // get method
     public static List<List<String>> getContinents() {
         return continents;
     }

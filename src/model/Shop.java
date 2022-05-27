@@ -9,6 +9,8 @@ public class Shop {
     private float money;
     private Inventory inventory;
 
+    // constructors
+    // typically we use the shop with a null employees array and an empty inventory specified
     public Shop(String name, Location location, float money, Inventory inventory) {
         this.name = name;
         this.location = location;
@@ -24,6 +26,7 @@ public class Shop {
         this.inventory = inventory;
     }
 
+    // getters and setters
     public String getName() {
         return name;
     }
@@ -53,6 +56,7 @@ public class Shop {
     }
 
     public void setMoney(float money) {
+        // money can be theoretically equal to 0 or negative but we will use a minimum of 1 penny
         if (money < 0.01F) {
             System.out.println("Invalid capital amount entered!");
             this.money = 0.01F;
@@ -69,7 +73,10 @@ public class Shop {
         this.inventory = inventory;
     }
 
+    // class methods
+
     public boolean checkIfEmployeeExists(Employee employee) {
+        // check if the employee is already assigned to the shop, so they cannot get double-assigned
         return this.employees.contains(employee);
     }
 

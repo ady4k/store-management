@@ -6,8 +6,10 @@ import model.Headquarters;
 import java.util.ArrayList;
 
 public class HeadquartersStorage implements IStorable<Headquarters> {
+    // all headquarters entities are kept in an ArrayList collection
     private final static ArrayList<Headquarters> headquarters = new ArrayList<Headquarters>();
 
+    // CRUD methods
     @Override
     public void addNewItem(Headquarters item) {
         headquarters.add(item);

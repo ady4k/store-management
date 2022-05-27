@@ -6,8 +6,10 @@ import model.Product;
 import java.util.ArrayList;
 
 public class Products implements IStorable<Product> {
+    // all product entities will be stored in an ArrayList
     private final static ArrayList<Product> products = new ArrayList<Product>();
 
+    // CRUD methods
     @Override
     public void addNewItem(Product item) {
         products.add(item);

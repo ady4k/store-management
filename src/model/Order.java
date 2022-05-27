@@ -16,6 +16,8 @@ public class Order {
     private Date dateLaunched;
     private Date estimatedTimeOfArrival;
 
+    // constructors
+    // typically a new created order is going to have only the operator that manages it
     public Order(Employee operator) {
         this.operator = operator;
     }
@@ -32,6 +34,7 @@ public class Order {
         this.estimatedTimeOfArrival = estimatedTimeOfArrival;
     }
 
+    // getters and setters
     public Map<Product, Integer> getProducts() {
         return products;
     }
@@ -88,13 +91,16 @@ public class Order {
         this.estimatedTimeOfArrival = estimatedTimeOfArrival;
     }
 
+    // class methods
     @Override
     public String toString() {
         String productString = "";
+        // the entire products list is inside of the productString variable
         for (Product product : this.products.keySet()) {
             productString = productString.concat(product.getName() + ":" + this.products.get(product) + "\n");
         }
 
+        // status code needs to be decoded to a readable form
         String status;
         switch (this.statusCode) {
             case 0 -> status = "in preparation";
@@ -103,18 +109,24 @@ public class Order {
             case 3 -> status = "cancelled";
             case default -> status = "status not available";
         }
+
+        // dates are going to be formatted to a simple "DD-MM-YYYY" format for easier readability
+        // more specific times, like hh:mm:ss are not required
         String dateLaunchedString = null;
         try {
             dateLaunchedString = dateFormat(this.dateLaunched);
         } catch (ParseException exc) {
             throw new RuntimeException(exc);
         }
+
         String estimatedTimeOfArrivalString = null;
         try {
             estimatedTimeOfArrivalString = dateFormat(this.estimatedTimeOfArrival);
         } catch (ParseException exc) {
             throw new RuntimeException(exc);
         }
+
+        // formatted string for a better readability
         return String.format("""
                 Order details:
                     - productString:
@@ -126,6 +138,4 @@ public class Order {
                     - operator: %s
                 """, productString, finalPrice, status, dateLaunchedString, estimatedTimeOfArrivalString, operator.getFirstName() + " " + operator.getLastName());
     }
-
-
 }

@@ -6,8 +6,10 @@ import model.Inventory;
 import java.util.ArrayList;
 
 public class InventoryStorage implements IStorable<Inventory> {
+    // all the inventory entities will be kept in an ArrayList
     private final static ArrayList<Inventory> inventories = new ArrayList<Inventory>();
 
+    // CRUD methods
     @Override
     public void addNewItem(Inventory item) {
         inventories.add(item);

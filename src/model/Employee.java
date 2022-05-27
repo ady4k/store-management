@@ -7,6 +7,7 @@ public class Employee {
     private Location location;
     private String email;
 
+    // constructors
     public Employee(int cnp, String firstName, String lastName, Location location, String email) {
         this.cnp = cnp;
         this.firstName = firstName;
@@ -15,11 +16,13 @@ public class Employee {
         this.email = email;
     }
 
+    // getters and setters
     public int getCnp() {
         return cnp;
     }
 
     public void setCnp(int cnp) {
+        // checks for input length to be equal to romanian CNP length
         if (String.valueOf(cnp).length() != 13 || cnp < 0) {
             System.out.println("Invalid CNP entered");
             return;
@@ -59,6 +62,7 @@ public class Employee {
         this.email = email;
     }
 
+    // class methods
     @Override
     public String toString() {
         return "cnp: " + cnp + ", "

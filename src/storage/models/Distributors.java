@@ -6,8 +6,10 @@ import model.Distributor;
 import java.util.ArrayList;
 
 public class Distributors implements IStorable<Distributor> {
+    // all distributor entities are kept in an ArrayList collection
     private final static ArrayList<Distributor> distributors = new ArrayList<Distributor>();
 
+    // CRUD methods
     @Override
     public void addNewItem(Distributor item) {
         distributors.add(item);

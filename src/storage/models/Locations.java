@@ -6,8 +6,10 @@ import model.Location;
 import java.util.ArrayList;
 
 public class Locations implements IStorable<Location> {
+    // all the location entities will be kept in an ArrayList
     private static final ArrayList<Location> locations = new ArrayList<Location>();
 
+    // CRUD methods
     @Override
     public void addNewItem(Location item) {
         locations.add(item);

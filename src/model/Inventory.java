@@ -7,6 +7,9 @@ public class Inventory {
     private float remainingCapacity = totalCapacity;
     private Map<Product, Integer> products;
 
+
+    // constructors
+    // in general we use the variant without products because they get set over time
     public Inventory(float totalCapacity) {
         this.totalCapacity = totalCapacity;
         this.products = null;
@@ -17,15 +20,20 @@ public class Inventory {
         this.products = products;
     }
 
+
+    // getters and setters
     public float getTotalCapacity() {
         return totalCapacity;
     }
 
     public void setTotalCapacity(float totalCapacity) {
+        // the total capacity cannot be a negative number
+        // also if total capacity is already set and we have items in the inventory, we cannot set the total lower than what is occupied
         if (totalCapacity < 0 || totalCapacity - this.remainingCapacity < 0) {
             System.out.println("Invalid Total Capacity entered!\nTotal Capacity cannot be lower than 0 or the occupied capacity in the inventory.");
             return;
         }
+        // automatically adjusts the remaining capacity when changing the total capacity of the inventory
         setRemainingCapacity(totalCapacity - this.totalCapacity + getRemainingCapacity());
         this.totalCapacity = totalCapacity;
     }
@@ -42,7 +50,9 @@ public class Inventory {
         return products;
     }
 
+    // class methods
     public void setProducts(Map<Product, Integer> products) {
+        // calculates the space the products need to use when setting them
         float capacityOccupied = 0;
         for (Product key : products.keySet()) {
             capacityOccupied = capacityOccupied + key.getWeight() * products.get(key);
@@ -55,6 +65,7 @@ public class Inventory {
     }
 
     public boolean modifyCapacity(float capacity, boolean adding) {
+        // method that modifies the remaining capacity of the inventory based whether we are adding a product or removing it
         if (capacity > this.remainingCapacity && adding) {
             System.out.println("Remaining capacity is too low to fit the item selected!");
             return false;

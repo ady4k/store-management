@@ -6,8 +6,10 @@ import model.Category;
 import java.util.ArrayList;
 
 public class Categories implements IStorable<Category> {
+    // all the different types of category entities will be kept in an ArrayList
     private static final ArrayList<Category> categories = new ArrayList<Category>();
 
+    // CRUD methods
     @Override
     public void addNewItem(Category item) {
         categories.add(item);

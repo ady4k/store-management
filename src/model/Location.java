@@ -5,6 +5,7 @@ public class Location {
     private String city;
     private String country;
 
+    // constructors
     public Location() {
     }
 
@@ -13,6 +14,7 @@ public class Location {
         this.country = country;
     }
 
+    // getters and setters
     public String getCity() {
         return city;
     }
@@ -29,6 +31,7 @@ public class Location {
         this.country = country;
     }
 
+    // class methods
     @Override
     public String toString() {
         return "city: " + city + ", " + "country: " + country;
