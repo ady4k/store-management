@@ -83,8 +83,12 @@ public class Shop {
     @Override
     public String toString() {
         String employeesString = "";
-        for (Employee employee : employees) {
-            employeesString = employeesString.concat(employee.toString());
+        if (employees == null) {
+            employeesString = "none";
+        } else {
+            for (Employee employee : employees) {
+                employeesString = employeesString.concat(employee.toString());
+            }
         }
         return "name:" + name + ", location details:" + location + ", money: " + money + ", inventory details:" + inventory +
                 ", employees:" + employeesString;

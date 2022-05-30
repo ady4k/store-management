@@ -14,10 +14,10 @@ import java.util.ArrayList;
 
 
 public final class CsvDatabase implements IDatabase {
-    private final static String categories = "database/categories.csv";
-    private final static String locations = "database/locations.csv";
-    private final static String employees = "database/employees.csv";
-    private final static String headquarters = "database/headquarters.csv";
+    private final static String categories = "src/database/categories.csv";
+    private final static String locations = "src/database/locations.csv";
+    private final static String employees = "src/database/employees.csv";
+    private final static String headquarters = "src/database/headquarters.csv";
 
     private static <T> ArrayList<T> importFromCsv(String filePath, ICsvTypeFactory<T> typeFactory) throws IOException {
         FileReader fileReader = new FileReader(filePath);

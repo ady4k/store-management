@@ -8,7 +8,7 @@ public class Employee {
     public final static ICsvTypeFactory<Employee> FACTORY = new ICsvTypeFactory<Employee>() {
         @Override
         public String[] getColumnNames() {
-            return new String[]{"cnp", "firstName", "lastName", "location", "email"};
+            return new String[]{"cnp", "firstName", "lastName", "city", "country", "email"};
         }
 
         @Override

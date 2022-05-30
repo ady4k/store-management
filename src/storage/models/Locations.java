@@ -16,7 +16,7 @@ public class Locations implements IStorable<Location> {
 
     static {
         try {
-            database = new LogAuditHelper(csvDatabase, "database/audit.csv");
+            database = new LogAuditHelper(csvDatabase, "src/database/audit.csv");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

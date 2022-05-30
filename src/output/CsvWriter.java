@@ -32,5 +32,6 @@ public class CsvWriter<T> {
     private void writeLine(String[] strings) throws IOException {
         String line = String.join(",", strings) + "\n";
         csvWrite.write(line);
+        csvWrite.flush();
     }
 }

@@ -14,10 +14,10 @@ public class FileRead {
     private static final Categories categories = new Categories();
     private static final HeadquartersStorage headquartersStorage = new HeadquartersStorage();
 
-    private static final File categoriesFile = new File("database/categories.csv");
-    private static final File employeesFile = new File("database/employees.csv");
-    private static final File headquartersFile = new File("database/headquarters.csv");
-    private static final File locationsFile = new File("database/locations.csv");
+    private static final File categoriesFile = new File("src/database/categories.csv");
+    private static final File employeesFile = new File("src/database/employees.csv");
+    private static final File headquartersFile = new File("src/database/headquarters.csv");
+    private static final File locationsFile = new File("src/database/locations.csv");
 
     public static void readFromFiles() throws IOException {
         if (categoriesFile.length() != 0) {

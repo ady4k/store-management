@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class SQLDatabase implements IDatabase {
-    private final static DatabaseConnectionHelper databaseHelper = new DatabaseConnectionHelper();
+    private final static DatabaseConnectionHelper databaseHelper = DatabaseConnectionHelper.getInstance();
     private final static Connection connection = databaseHelper.connect();
 
     private final PreparedStatement insertCategories;
@@ -46,30 +46,30 @@ public class SQLDatabase implements IDatabase {
     private void createTables() throws SQLException {
         String categoriesTable = "CREATE TABLE IF NOT EXISTS categories (" +
                 "categoryId SMALLSERIAL PRIMARY KEY," +
-                "name VARCHAR2(50) UNIQUE NOT NULL)";
+                "name VARCHAR(50) UNIQUE NOT NULL)";
 
         String locationsTable = "CREATE TABLE IF NOT EXISTS locations (" +
                 "locationId SMALLSERIAL PRIMARY KEY," +
-                "city VARCHAR2(50) NOT NULL" +
-                "country VARCHAR2(50) NOT NULL)";
+                "city VARCHAR(50) NOT NULL," +
+                "country VARCHAR(50) NOT NULL)";
 
         String employeesTable = "CREATE TABLE IF NOT EXISTS employees (" +
-                "employeeId SMALLSERIAL PRIMARY KEY" +
-                "cnp VARCHAR(13) UNIQUE NOT NULL" +
-                "firstName VARCHAR2(50) NOT NULL" +
-                "lastName VARCHAR2(50) NOT NULL" +
-                "city VARCHAR2(50) NOT NULL" +
-                "country VARCHAR2(50) NOT NULL" +
-                "email VARCHAR2(100) UNIQUE NOT NULL";
+                "employeeId SMALLSERIAL PRIMARY KEY," +
+                "cnp VARCHAR(13) UNIQUE NOT NULL," +
+                "firstName VARCHAR(50) NOT NULL," +
+                "lastName VARCHAR(50) NOT NULL," +
+                "city VARCHAR(50) NOT NULL," +
+                "country VARCHAR(50) NOT NULL," +
+                "email VARCHAR(100) UNIQUE NOT NULL)";
 
         String headquartersTable = "CREATE TABLE IF NOT EXISTS headquarters (" +
-                "headquartersId SMALLSERIAL PRIMARY KEY" +
-                "city VARCHAR2(50) NOT NULL" +
-                "country VARCHAR2(50) NON NULL" +
-                "postalCode VARCHAR(6) NOT NULL" +
-                "street VARCHAR2(50) NOT NULL" +
-                "streetNumber SMALLINT NOT NULL" +
-                "phoneNumber VARCHAR(10) UNIQUE NOT NULL";
+                "headquartersId SMALLSERIAL PRIMARY KEY," +
+                "city VARCHAR(50) NOT NULL," +
+                "country VARCHAR(50) NOT NULL," +
+                "postalCode VARCHAR(6) NOT NULL," +
+                "street VARCHAR(50) NOT NULL," +
+                "streetNumber SMALLINT NOT NULL," +
+                "phoneNumber VARCHAR(10) UNIQUE NOT NULL)";
 
         Statement statement = connection.createStatement();
         statement.execute(categoriesTable);
