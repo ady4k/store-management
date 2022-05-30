@@ -4,9 +4,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DatabaseConnectionHelper {
-    private final static String url = "jdbc:postgresql://localhost:5432/proiect_pao";
+    private final static String url = "jdbc:postgresql://localhost/proiect_pao";
     private final static String user = "appuser";
     private final static String password = "P@$$w0rd";
+
+    private static DatabaseConnectionHelper instance = null;
+
+    public static DatabaseConnectionHelper getInstance() {
+        if (instance == null) {
+            instance = new DatabaseConnectionHelper();
+        }
+        return instance;
+    }
 
     private Connection connection = null;
 
