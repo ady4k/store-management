@@ -7,16 +7,12 @@ import model.Headquarters;
 import model.Location;
 
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class LogAuditHelper implements IDatabase {
     private final IDatabase database;
@@ -25,8 +21,8 @@ public class LogAuditHelper implements IDatabase {
     public LogAuditHelper(IDatabase database, String filePath) throws IOException {
         this.database = database;
 
-        Path path = Paths.get(filePath);
-        this.bufferedWriter = Files.newBufferedWriter(path, UTF_8);
+        FileWriter fileWriter = new FileWriter(filePath, true);
+        this.bufferedWriter = new BufferedWriter(fileWriter);
     }
 
     private void log(String action) throws IOException {
@@ -35,7 +31,7 @@ public class LogAuditHelper implements IDatabase {
         String actionThread = Thread.currentThread().getName();
         String csvLine = today + ": " + action + ", thread: " + actionThread + "\n";
 
-        bufferedWriter.write(csvLine);
+        bufferedWriter.append(csvLine);
         bufferedWriter.flush();
     }
 
