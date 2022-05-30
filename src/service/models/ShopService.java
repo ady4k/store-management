@@ -687,7 +687,7 @@ public class ShopService implements IMaintainable<Shop>, ICountable<ArrayList<Em
         showItems(); // shows the list of shops
 
         // returns the selected shop
-        return storage.getItemByIndex(scanner.nextInt());
+        return storage.getItemByIndex(scanner.nextInt() - 1);
     }
 
     // for usage in the menu service

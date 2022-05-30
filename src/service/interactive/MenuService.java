@@ -226,6 +226,7 @@ public class MenuService {
                 if (itemSelected == "Product") productChoice(option - 1);
                 if (itemSelected == "Shop") shopChoice(option - 1);
             } // based on the item and option selected, exits to the next step with the option given
+            case 6 -> shopAdministrationMenu();
             default -> System.out.println("Invalid option selected!");
         }
         // returns to the main menu once the operation is done
